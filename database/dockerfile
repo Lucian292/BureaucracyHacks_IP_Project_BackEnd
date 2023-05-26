@@ -1,0 +1,17 @@
+# Use an official MySQL runtime as a parent image
+FROM mysql:latest
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the schema.sql file to the container
+ADD mydb_schema.sql /docker-entrypoint-initdb.d/
+COPY my.cnf /etc/mysql/my.cnf
+# Set environment variables for the database
+ENV MYSQL_ROOT_PASSWORD=root
+
+
+# Expose port 3306 for MySQL connections
+EXPOSE 3306
+
+VOLUME /var/lib/mysql
